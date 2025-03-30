@@ -5,33 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Luna</title>
     <style>
-        /* Basic Reset */
-        body, h1 {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; /* Makes padding calculation easier */
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --bg-color: #ffffff; /* Light mode background */
+            --text-color: #333333; /* Light mode text */
+            --header-bg: rebeccapurple;
+            --header-text: #ffffff;
+            --box-bg: #f4f4f4; /* Light mode box background */
+            --box-border: #cccccc;
+            --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --switch-bg: #ccc;
+            --switch-knob: white;
+            --switch-bg-active: #8A2BE2; /* A lighter purple for active switch */
+
+            --transition-speed: 0.3s;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; /* Dark mode background */
+            --text-color: #e0e0e0; /* Dark mode text */
+            --header-bg: #4a148c; /* Slightly darker purple for dark header */
+            --header-text: #e0e0e0;
+            --box-bg: #2a2a2a; /* Dark mode box background */
+            --box-border: #555555;
+            --box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            --switch-bg: #555;
+            --switch-knob: #bbb;
+            --switch-bg-active: rebeccapurple;
+        }
+
+        /* --- Basic Reset & Body --- */
+        *, *::before, *::after {
+             box-sizing: border-box; /* Better box model */
         }
 
         body {
-            font-family: sans-serif; /* Optional: set a basic font */
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* The Purple Header */
+        /* --- Header Styling --- */
         header {
-            background-color: rebeccapurple; /* You can change this color! e.g., #8A2BE2 (BlueViolet), #6A0DAD (another purple) */
-            padding: 15px 20px; /* Add some space inside the header (top/bottom, left/right) */
-            color: white; /* Make text white for contrast */
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 15px 25px; /* Increased padding slightly */
+            display: flex; /* Use flexbox for alignment */
+            justify-content: space-between; /* Space items out */
+            align-items: center; /* Vertically center items */
+            transition: background-color var(--transition-speed) ease;
         }
 
-        /* Style for the Project Name */
         header h1 {
-            font-size: 1.8em; /* Adjust size as needed */
+            margin: 0; /* Remove default margin */
+            font-size: 1.8em;
             font-weight: bold;
         }
 
-        /* Optional: Some basic content styling */
+        /* --- Main Content & Box Styling --- */
         main {
             padding: 20px;
+            display: flex; /* Using flex to help center the box */
+            justify-content: center; /* Center flex items horizontally */
+            align-items: center; /* Center flex items vertically */
+            min-height: 60vh; /* Give main some height to center vertically */
+        }
+
+        .content-box {
+            background-color: var(--box-bg);
+            border: 1px solid var(--box-border);
+            border-radius: 8px; /* Rounded corners */
+            padding: 30px 40px; /* More padding */
+            text-align: center; /* Center the text inside */
+            box-shadow: var(--box-shadow);
+            transform-origin: center center; /* Scale from the center */
+            transition: transform var(--transition-speed) ease,
+                        background-color var(--transition-speed) ease,
+                        border-color var(--transition-speed) ease; /* Smooth transition for hover and theme change */
+            max-width: 500px; /* Optional: constrain box width */
+            width: 90%; /* Responsive width */
+        }
+
+        .content-box h2 {
+            margin-top: 0; /* Remove top margin if it's the first element */
+            color: var(--text-color); /* Inherit text color for theme */
+             transition: color var(--transition-speed) ease;
+        }
+         .content-box p {
+            color: var(--text-color); /* Inherit text color for theme */
+             transition: color var(--transition-speed) ease;
+             line-height: 1.6; /* Improve readability */
+        }
+
+        .content-box:hover {
+            transform: scale(1.05); /* Enlarge the box on hover */
+        }
+
+        /* --- Theme Toggle Switch --- */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 24px; /* Adjusted height */
+            position: relative;
+            width: 50px; /* Adjusted width */
+            margin-left: 10px; /* Space from potential text */
+        }
+
+        .theme-switch input {
+            display:none; /* Hide the actual checkbox */
+        }
+
+        .slider {
+            background-color: var(--switch-bg);
+            border-radius: 34px; /* Make it pill-shaped */
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .slider:before {
+            background-color: var(--switch-knob);
+            border-radius: 50%; /* Make the knob circular */
+            bottom: 3px; /* Position knob */
+            content: "";
+            height: 18px; /* Knob size */
+            left: 4px; /* Starting position */
+            position: absolute;
+            width: 18px; /* Knob size */
+            transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease;
+        }
+
+        input:checked + .slider {
+            background-color: var(--switch-bg-active); /* Color when active */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px); /* Move knob to the right */
         }
 
     </style>
@@ -40,13 +160,51 @@
 
     <header>
         <h1>Project-Luna</h1>
+        <!-- Theme Switch -->
+        <div class="theme-switch-wrapper">
+            <!-- Optional: Add icons or text like "Dark Mode" -->
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider"></div>
+            </label>
+        </div>
     </header>
 
     <main>
-        <h2>Welcome!</h2>
-        <p>Here at Project-Luna we make resources for developers.</p>
-        <p>Hope you enjoy!</p>
+        <div class="content-box">
+            <h2>Welcome!</h2>
+            <p>This is a simple placeholder page for Project Luna.</p>
+            <p>Content goes here...</p>
+        </div>
     </main>
+
+    <script>
+        const toggleSwitch = document.getElementById('checkbox');
+        const currentTheme = localStorage.getItem('theme'); // Check local storage for saved theme
+
+        // Apply the saved theme on initial load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme); // Add 'dark-mode' class if saved
+            if (currentTheme === 'dark-mode') {
+                toggleSwitch.checked = true; // Set the toggle state
+            }
+        }
+
+        // Function to switch theme
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode'); // Save theme preference
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light-mode'); // Save theme preference
+            }
+        }
+
+        // Listen for change event on the toggle
+        toggleSwitch.addEventListener('change', switchTheme);
+
+    </script>
 
 </body>
 </html>
