@@ -3,7 +3,7 @@
     --bg-color: #ffffff;
     --text-color: #333333;
     --header-bg: rebeccapurple;
-    --header-text: #ffffff; /* Still useful if you add text later */
+    --header-text: #ffffff;
     --box-bg: #f4f4f4;
     --box-border: #cccccc;
     --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -13,7 +13,7 @@
     --switch-knob: white;
     --switch-bg-active: #8A2BE2;
 
-    --logo-height: 45px; /* Control logo size */
+    /* --logo-height: 45px; <-- Removed this variable */
     --transition-speed: 0.3s;
 }
 
@@ -53,7 +53,7 @@ body {
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
-    padding: 10px 25px; /* Adjusted padding slightly for image */
+    padding: 15px 25px; /* Adjusted padding back for text */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,18 +61,24 @@ header {
     flex-shrink: 0;
 }
 
-/* Style the link wrapping the Logo */
+/* Style the link wrapping the H1 */
 header a.logo-link {
-    display: inline-block; /* Good practice for image links */
-    line-height: 0; /* Prevent extra space around image */
+    color: inherit; /* Inherit color from header */
+    text-decoration: none; /* Remove underline */
+    /* line-height: 0; <-- Removed */
+    /* display: inline-block; <-- Optional */
 }
 
-/* Style the Logo Image */
-.header-logo {
-    height: var(--logo-height); /* Use variable for height */
-    width: auto; /* Maintain aspect ratio */
-    display: block; /* Prevents potential extra space below */
+/* Style the H1 inside the header link */
+header h1 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.8em;
+    font-weight: bold;
+    color: inherit; /* Ensure it takes header text color */
 }
+
+
+/* .header-logo { ... } <-- Removed this rule */
 
 /* --- Main Content --- */
 main {
@@ -150,7 +156,7 @@ main {
  .feature-box h3 { margin-top: 0; }
 
 
-/* --- Theme Toggle Switch --- */
+/* --- Theme Toggle Switch (Styles unchanged) --- */
 .theme-switch-wrapper { display: flex; align-items: center; }
 .theme-switch { display: inline-block; height: 24px; position: relative; width: 50px; margin-left: 10px; }
 .theme-switch input { display:none; }
