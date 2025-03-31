@@ -1,0 +1,160 @@
+/* --- CSS Variables for Theming --- */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: rebeccapurple;
+    --header-text: #ffffff; /* Still useful if you add text later */
+    --box-bg: #f4f4f4;
+    --box-border: #cccccc;
+    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --feature-box-bg: #e9e9e9;
+    --feature-box-border: #bbbbbb;
+    --switch-bg: #ccc;
+    --switch-knob: white;
+    --switch-bg-active: #8A2BE2;
+
+    --logo-height: 45px; /* Control logo size */
+    --transition-speed: 0.3s;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg: #4a148c;
+    --header-text: #e0e0e0;
+    --box-bg: #2a2a2a;
+    --box-border: #555555;
+    --box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+    --feature-box-bg: #3a3a3a;
+    --feature-box-border: #666666;
+    --switch-bg: #555;
+    --switch-knob: #bbb;
+    --switch-bg-active: rebeccapurple;
+}
+
+/* --- Basic Reset & Body --- */
+*, *::before, *::after {
+     box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header Styling --- */
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 10px 25px; /* Adjusted padding slightly for image */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color var(--transition-speed) ease;
+    flex-shrink: 0;
+}
+
+/* Style the link wrapping the Logo */
+header a.logo-link {
+    display: inline-block; /* Good practice for image links */
+    line-height: 0; /* Prevent extra space around image */
+}
+
+/* Style the Logo Image */
+.header-logo {
+    height: var(--logo-height); /* Use variable for height */
+    width: auto; /* Maintain aspect ratio */
+    display: block; /* Prevents potential extra space below */
+}
+
+/* --- Main Content --- */
+main {
+    padding: 30px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* --- Centered Content Box Styling --- */
+.content-box {
+    background-color: var(--box-bg);
+    border: 1px solid var(--box-border);
+    border-radius: 8px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transform-origin: center center;
+    transition: transform var(--transition-speed) ease,
+                background-color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+    max-width: 500px;
+    width: 90%;
+}
+
+.content-box:hover {
+    transform: scale(1.05);
+}
+
+.content-box h2, .content-box p {
+     color: var(--text-color);
+     transition: color var(--transition-speed) ease;
+}
+ .content-box h2 { margin-top: 0; }
+ .content-box p { line-height: 1.6; }
+
+
+/* --- Horizontal Feature Boxes Section --- */
+.features-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 15px;
+}
+
+.feature-box {
+    background-color: var(--feature-box-bg);
+    border: 1px solid var(--feature-box-border);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    flex: 1 1 250px;
+    max-width: 300px;
+    transition: transform var(--transition-speed) ease,
+                background-color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+    transform-origin: center center;
+}
+
+.feature-box:hover {
+     transform: scale(1.07);
+}
+
+.feature-box h3, .feature-box p {
+    color: var(--text-color);
+    transition: color var(--transition-speed) ease;
+     margin-bottom: 0.5em;
+}
+ .feature-box h3 { margin-top: 0; }
+
+
+/* --- Theme Toggle Switch --- */
+.theme-switch-wrapper { display: flex; align-items: center; }
+.theme-switch { display: inline-block; height: 24px; position: relative; width: 50px; margin-left: 10px; }
+.theme-switch input { display:none; }
+.slider { background-color: var(--switch-bg); border-radius: 34px; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: background-color var(--transition-speed) ease; }
+.slider:before { background-color: var(--switch-knob); border-radius: 50%; bottom: 3px; content: ""; height: 18px; left: 4px; position: absolute; width: 18px; transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease; }
+input:checked + .slider { background-color: var(--switch-bg-active); }
+input:checked + .slider:before { transform: translateX(26px); }
