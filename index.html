@@ -4,174 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Luna</title>
-    <style>
-        /* --- CSS Variables for Theming --- */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --header-bg: rebeccapurple;
-            --header-text: #ffffff;
-            --box-bg: #f4f4f4;
-            --box-border: #cccccc;
-            --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            --feature-box-bg: #e9e9e9; /* Slightly different bg for feature boxes */
-            --feature-box-border: #bbbbbb;
-            --switch-bg: #ccc;
-            --switch-knob: white;
-            --switch-bg-active: #8A2BE2;
-
-            --transition-speed: 0.3s;
-        }
-
-        body.dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --header-bg: #4a148c;
-            --header-text: #e0e0e0;
-            --box-bg: #2a2a2a;
-            --box-border: #555555;
-            --box-shadow: 0 4px 8px rgba(255,255,255,0.1);
-            --feature-box-bg: #3a3a3a;
-            --feature-box-border: #666666;
-            --switch-bg: #555;
-            --switch-knob: #bbb;
-            --switch-bg-active: rebeccapurple;
-        }
-
-        /* --- Basic Reset & Body --- */
-        *, *::before, *::after {
-             box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-            min-height: 100vh; /* Ensure body takes full height */
-            display: flex; /* Use flex to manage footer positioning if needed later */
-            flex-direction: column; /* Stack header, main, footer */
-        }
-
-        /* --- Header Styling --- */
-        header {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color var(--transition-speed) ease;
-            flex-shrink: 0; /* Prevent header from shrinking */
-        }
-
-        /* Style the link wrapping the H1 */
-        header a.logo-link {
-            color: inherit; /* Inherit white color from header */
-            text-decoration: none; /* Remove underline */
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        /* --- Main Content --- */
-        main {
-            padding: 30px 20px; /* Increased top/bottom padding */
-            flex-grow: 1; /* Allow main to grow and push footer down */
-            display: flex;
-            flex-direction: column; /* Stack content-box and features */
-            align-items: center; /* Center items horizontally */
-            gap: 30px; /* Add space between the main box and the feature boxes container */
-        }
-
-        /* --- Centered Content Box Styling --- */
-        .content-box {
-            background-color: var(--box-bg);
-            border: 1px solid var(--box-border);
-            border-radius: 8px;
-            padding: 30px 40px;
-            text-align: center;
-            box-shadow: var(--box-shadow);
-            transform-origin: center center;
-            transition: transform var(--transition-speed) ease,
-                        background-color var(--transition-speed) ease,
-                        border-color var(--transition-speed) ease;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .content-box:hover {
-            transform: scale(1.05);
-        }
-
-        .content-box h2, .content-box p {
-             color: var(--text-color);
-             transition: color var(--transition-speed) ease;
-        }
-         .content-box h2 { margin-top: 0; }
-         .content-box p { line-height: 1.6; }
-
-
-        /* --- Horizontal Feature Boxes Section --- */
-        .features-container {
-            display: flex;
-            justify-content: center; /* Center boxes if space allows */
-            gap: 25px; /* Space between feature boxes */
-            flex-wrap: wrap; /* Allow boxes to wrap on smaller screens */
-            width: 100%; /* Take full width to allow centering */
-            max-width: 1000px; /* Optional: constrain max width of the feature row */
-            padding: 0 15px; /* Add some padding so boxes don't touch edges on small screens */
-        }
-
-        .feature-box {
-            background-color: var(--feature-box-bg);
-            border: 1px solid var(--feature-box-border);
-            border-radius: 6px;
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            text-align: center; /* Center text within each feature box */
-            flex: 1 1 250px; /* Flex properties: grow, shrink, basis (min width before wrapping) */
-            max-width: 300px; /* Optional: prevent boxes from becoming too wide */
-            transition: transform var(--transition-speed) ease,
-                        background-color var(--transition-speed) ease,
-                        border-color var(--transition-speed) ease;
-            transform-origin: center center;
-        }
-
-        .feature-box:hover {
-             transform: scale(1.07); /* Slightly larger scale for effect */
-        }
-
-        .feature-box h3, .feature-box p {
-            color: var(--text-color);
-            transition: color var(--transition-speed) ease;
-             margin-bottom: 0.5em; /* Spacing inside the box */
-        }
-         .feature-box h3 { margin-top: 0; }
-
-
-        /* --- Theme Toggle Switch (Styles unchanged) --- */
-        .theme-switch-wrapper { display: flex; align-items: center; }
-        .theme-switch { display: inline-block; height: 24px; position: relative; width: 50px; margin-left: 10px; }
-        .theme-switch input { display:none; }
-        .slider { background-color: var(--switch-bg); border-radius: 34px; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: background-color var(--transition-speed) ease; }
-        .slider:before { background-color: var(--switch-knob); border-radius: 50%; bottom: 3px; content: ""; height: 18px; left: 4px; position: absolute; width: 18px; transition: transform var(--transition-speed) ease, background-color var(--transition-speed) ease; }
-        input:checked + .slider { background-color: var(--switch-bg-active); }
-        input:checked + .slider:before { transform: translateX(26px); }
-
-    </style>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body> <!-- No class needed here initially, JS will add it -->
 
     <header>
-        <!-- Wrap H1 in an Anchor Tag for Home Link -->
+        <!-- Logo Link -->
         <a href="#" class="logo-link">
-            <h1>Project-Luna</h1>
+            <!-- Make sure 'project-luna-logo.gif' is the correct path/filename -->
+            <img src="project-luna-logo.gif" alt="Project Luna Logo" class="header-logo">
         </a>
 
         <!-- Theme Switch -->
@@ -208,30 +50,8 @@
         </div>
     </main>
 
-    <script>
-        // --- JavaScript for Theme Toggle (Unchanged) ---
-        const toggleSwitch = document.getElementById('checkbox');
-        const currentTheme = localStorage.getItem('theme');
-
-        if (currentTheme) {
-            document.body.classList.add(currentTheme);
-            if (currentTheme === 'dark-mode') {
-                toggleSwitch.checked = true;
-            }
-        }
-
-        function switchTheme(e) {
-            if (e.target.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light-mode');
-            }
-        }
-
-        toggleSwitch.addEventListener('change', switchTheme);
-    </script>
+    <!-- Link to the external JavaScript file (place before closing </body>) -->
+    <script src="script.js"></script>
 
 </body>
 </html>
